@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const signUpRoute = require("./routes/SignUp");
 const signInRoute = require("./routes/SignIn");
 const logoutRoute = require("./routes/Logout");
+const AdminProducts = require("./routes/AdminProduct");
+const uploadTest = require("./routes/uploadTest");
 const mongoose = require("mongoose");
 const app = express();
 mongoose
@@ -30,11 +32,11 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use("/api/upload", uploadTest);
 app.get("/", (req, res) => {
   res.send("Welcome to my API!");
 });
-
+app.use("/api/admin/adminProduct", AdminProducts);
 app.use("/api/auth/signup", signUpRoute);
 app.use("/api/auth/signin", signInRoute);
 app.use("/api/auth/me", meRoute);

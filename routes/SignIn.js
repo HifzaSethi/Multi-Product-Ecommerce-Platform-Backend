@@ -7,6 +7,7 @@ router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
+
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
@@ -18,9 +19,13 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     res.cookie("token", token, {
       httpOnly: true,

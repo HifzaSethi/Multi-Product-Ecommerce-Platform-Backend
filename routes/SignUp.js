@@ -27,7 +27,10 @@ router.post("/", async (req, res) => {
         });
 
         // 4. Generate Token
-        let token = jwt.sign({ email }, process.env.JWT_SECRET);
+        let token = jwt.sign(
+          { email: createdUser.email, role: createdUser.role },
+          process.env.JWT_SECRET
+        );
 
         // 5. Set Cookie
         res.cookie("token", token, {
