@@ -36,7 +36,8 @@ app.use("/api/upload", uploadTest);
 app.get("/", (req, res) => {
   res.send("Welcome to my API!");
 });
-app.use("/api/admin/adminProduct", AdminProducts);
+app.use("/api/admin/adminProduct", AdminProducts); // POST + GET
+
 app.use("/api/auth/signup", signUpRoute);
 app.use("/api/auth/signin", signInRoute);
 app.use("/api/auth/me", meRoute);
